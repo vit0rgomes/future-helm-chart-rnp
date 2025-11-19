@@ -33,7 +33,14 @@ spec:
           args:
             - sh
             - -c
-            - "echo R_PARALLEL_PORT={{ .Values.scheduler.RfuturePort }} >> /usr/local/lib/R/etc/Renviron && echo NSLOTS={{ .Values.worker.replicas }} >> /usr/local/lib/R/etc/Renviron && Rscript -e 'setup_kube()' && PASSWORD={{ .Values.scheduler.RStudioPassword }} /init"
+            - |
+              echo R_PARALLEL_PORT={{ .Values.scheduler.RfuturePort }} >> /usr/local/lib/R/etc/Renviron
+              echo NSLOTS={{ .Values.worker.replicas }} >> /usr/local/lib/R/etc/Renviron
+
+              Rscript -e "library(mirai); url <- mirai::host_url(port = {{ .Values.scheduler.RfuturePort }}); cat('mirai listening at', url, '\n'); mirai::daemons(url = url, dispatcher = FALSE, autoexit = NA)" &
+
+              Rscript -e "setup_kube()"
+              PASSWORD={{ .Values.scheduler.RStudioPassword }} exec /init
           ports:
             - containerPort: {{ .Values.scheduler.RfuturePort }}
             - containerPort: {{ .Values.scheduler.servicePort }}

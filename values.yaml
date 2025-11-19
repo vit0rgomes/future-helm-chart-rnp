@@ -1,12 +1,12 @@
 ---
-nameOverride: future
-fullnameOverride: future
+nameOverride: mirai
+fullnameOverride: mirai
 
 scheduler:
   name: scheduler
   image:
-    repository: "paciorek/future-kubernetes"
-    tag: 0.5
+    repository: "wiluvivi/dockerfile-rnp"
+    tag: new-mirai-repo
     pullPolicy: IfNotPresent
     # See https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     pullSecrets:
@@ -16,7 +16,7 @@ scheduler:
   serviceType: "NodePort"
   # serviceType: "LoadBalancer"
   servicePort: 8787
-  nodePort: 31001
+  # nodePort: 31001
   resources: {}
   #  limits:
   #    cpu: 1.8
@@ -37,16 +37,16 @@ scheduler:
       # secretName: my-tls-cert
       # kubernetes.io/tls-acme: "true"
   RStudioPassword: "future"
-  RfuturePort: 31002
+  RfuturePort: 11562
   env:
   #  - name: EXTRA_R_PACKAGES
-  #    value: data.table
+  #    value: mirai future.mirai
 
 worker:
   name: worker
   image:
-    repository: "paciorek/future-kubernetes"
-    tag: 0.5
+    repository: "wiluvivi/dockerfile-rnp"
+    tag: new-mirai-repo
     pullPolicy: IfNotPresent
     pullSecrets:
     #  - name: regcred
@@ -57,7 +57,7 @@ worker:
     memory: "4GiB"
   env:
   #  - name: EXTRA_R_PACKAGES
-  #    value: data.table
+  #    value: mirai future.mirai
   resources: {}
   #  limits:
   #    cpu: 1

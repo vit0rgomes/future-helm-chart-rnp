@@ -5,7 +5,7 @@ home: https://github.com/paciorek/future-helm-chart
 maintainers:
 - email: paciorek@stat.berkeley.edu
   name: paciorek
-name: future-helm-chart
+name: mirai-helm-chart
 sources:
 - https://github.com/paciorek/future-helm-chart
 version: 0.11
